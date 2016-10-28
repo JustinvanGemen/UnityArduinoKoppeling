@@ -1,0 +1,29 @@
+int ledPin = 13;
+int joyPin1 = 0;                 // slider variable connecetd to analog pin 0
+int joyPin2 = 1;                 // slider variable connecetd to analog pin 1
+int joyValue1 = 0;                  // variable to read the value from the analog pin 0
+int joyValue2 = 0;                  // variable to read the value from the analog pin 1
+
+void setup()
+{
+ pinMode(ledPin, OUTPUT);              // initializes digital pins 0 to 7 as outputs
+ Serial.begin(9600);
+}
+
+int treatValue(int data)
+{
+ return map(data, 0, 1023, 0, 360);//360 degrees
+}
+
+void loop()
+{
+ delay(100);
+ joyValue1 = analogRead(joyPin1);
+ delay(100);
+ joyValue2 = analogRead(joyPin2);
+
+ Serial.print(treatValue(joyValue1));
+ Serial.print(",");//separator
+
+ Serial.println(treatValue(joyValue2));//end of line for readline in unity
+}
